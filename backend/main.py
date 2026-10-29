@@ -56,6 +56,16 @@ def fetch_json(url: str, retries: int = 3) -> list | dict:
     raise HTTPException(status_code=502, detail=f"Elexon API failed after retries: {last_err}")
 
 
+@app.get("/")
+def root() -> dict:
+    return {
+        "message": "UK Wind Generation API is running",
+        "docs": "/docs",
+        "health": "/health",
+        "api": "/api/wind-data?target_date=2026-01-15",
+    }
+
+
 @app.get("/health")
 def health() -> dict:
     return {"status": "ok"}
